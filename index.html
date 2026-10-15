@@ -101,6 +101,33 @@ h2 em{font-style:italic;font-weight:400;color:var(--lantern)}
 .tl p{color:var(--mist);margin-top:.2rem;font-size:1rem}
 .tl li.now time{color:var(--rose)}
 .tl li.next p{font-style:italic}
+.memory{margin-top:.65rem}
+.memory summary{display:inline-flex;align-items:center;gap:.4rem;color:var(--rose);font-weight:800;font-size:.9rem;cursor:pointer}
+.memory summary:focus-visible,.quiz-toggle:focus-visible,.quiz-next:focus-visible,.quiz-reset:focus-visible,.quiz-form button:focus-visible{outline:3px solid var(--rose);outline-offset:3px;border-radius:8px}
+.memory-note{margin-top:.55rem;padding:.75rem 1rem;border-left:2px solid var(--lantern);border-radius:0 12px 12px 0;background:var(--card);color:var(--paper)}
+
+/* QUIZ */
+.quiz-card{margin-top:2.2rem;padding:clamp(1rem,5vw,1.6rem);border:1px solid var(--line);border-radius:24px;background:linear-gradient(145deg,var(--card),rgba(59,35,64,.62))}
+.quiz-toggle,.quiz-next,.quiz-reset,.quiz-form button{border:0;border-radius:999px;padding:.85rem 1.2rem;font:800 1rem/1 var(--body);cursor:pointer}
+.quiz-toggle,.quiz-form button,.quiz-next,.quiz-reset{background:var(--lantern);color:var(--night)}
+.quiz-lede{color:var(--mist);margin-top:.55rem}
+.quiz-question h3{font:600 1.4rem/1.2 var(--display);margin-bottom:1rem}
+.quiz-options{display:grid;gap:.6rem;margin:0 0 1rem;padding:0;border:0}
+.quiz-options label{display:flex;gap:.7rem;align-items:flex-start;padding:.75rem .9rem;border:1px solid var(--line);border-radius:14px;background:rgba(12,17,36,.48);cursor:pointer}
+.quiz-options label:has(input:checked){border-color:var(--lantern);background:rgba(255,178,94,.1)}
+.quiz-options input{margin-top:.28rem;accent-color:var(--rose)}
+.quiz-form button{margin-top:.2rem}
+.quiz-feedback{min-height:1.6em;margin-top:1rem;color:var(--mist)}
+.quiz-feedback.good{color:var(--lantern)}
+.quiz-feedback.try{color:var(--rose)}
+.quiz-next,.quiz-reset{margin-top:1rem}
+.quiz-final{text-align:center;padding-top:1.3rem}
+.quiz-final p{margin-top:.6rem}
+.quiz-envelope{position:relative;width:160px;height:120px;margin:0 auto}
+#quizEnvelopeFallback,#quizLottie{position:absolute;inset:0;width:100%;height:100%}
+.quiz-final-message{font:italic 400 1.28rem/1.5 var(--display);color:var(--paper)}
+.quiz-proposal{font:700 1.9rem/1.15 var(--hand);color:var(--rose)}
+.quiz-final .quiz-reset{margin-top:1.4rem}
 
 /* NUMEROS */
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;margin-top:2rem}
@@ -158,6 +185,7 @@ footer{padding:2rem 0 3rem;text-align:center;color:var(--mist);font-size:.9rem}
 .pl-photos{position:relative;flex:0 0 170px;width:170px;height:250px}
 .pl-main{display:block;width:150px;height:auto;border-radius:14px;border:4px solid var(--paper);rotate:-3deg;box-shadow:0 14px 28px rgba(0,0,0,.4)}
 .pl-small{position:absolute;right:0;bottom:0;width:84px;height:84px;object-fit:cover;border-radius:50%;border:3px solid var(--paper);box-shadow:0 10px 20px rgba(0,0,0,.4)}
+@media (prefers-reduced-motion:reduce){.quiz-envelope *{animation:none!important}}
 
 
 /* ---- Versión épica ---- */
@@ -325,9 +353,9 @@ h2 em{text-shadow:0 0 28px rgba(255,125,157,.35)}
     <div class="tl" id="tl">
       <div class="rail" aria-hidden="true"></div><div class="fill" id="tlFill" aria-hidden="true"></div>
     <ol>
-      <li><time>12 mayo</time><b>«Holap»</b><p>11:38 de la noche. Empieza todo.</p></li>
-      <li><time>15 junio</time><b>Te pregunté si querías ser mi novia</b><p>El día que contamos como el nuestro.</p></li>
-      <li><time>20 junio</time><b>Te lo pregunté otra vez, para que quedara por escrito</b><p>Respondiste: «SI QUIERO SER TU NOVIA MI CHIQUITO TODAAA TUYA».</p></li>
+      <li><time>12 mayo</time><b>«Holap»</b><p>11:38 de la noche. Empieza todo.</p><details class="memory"><summary>Descubre este recuerdo</summary><p class="memory-note">Me pasaste tu número por Messenger y me presenté como pude. Ahí empezó nuestro primer capítulo.</p></details></li>
+      <li><time>15 junio</time><b>Te pregunté si querías ser mi novia</b><p>El día que contamos como el nuestro.</p><details class="memory"><summary>Descubre este recuerdo</summary><p class="memory-note">Ese día empezó oficialmente nuestro nosotros. Y desde entonces, cada mes se siente más bonito.</p></details></li>
+      <li><time>20 junio</time><b>Te lo pregunté otra vez, para que quedara por escrito</b><p>Respondiste: «SI QUIERO SER TU NOVIA MI CHIQUITO TODAAA TUYA».</p><details class="memory"><summary>Descubre este recuerdo</summary><p class="memory-note">Tu respuesta quedó guardada tal como la escribiste: con todas esas letras y todo tu cariño.</p></details></li>
       <li><time>6 julio</time><b>Tú me lo preguntaste a mí</b><p>«¿Quieres ser mi novio? ❤️». Dije que sí, claro.</p></li>
       <li><time>15 julio</time><b>Un mes</b><p>«Contigo el tiempo pasa rápido, las horas se hacen minutos y los días horas.»</p></li>
       <li><time>15 agosto</time><b>Dos meses</b><p>«Los meses más felices de mi vida.»</p></li>
@@ -335,6 +363,76 @@ h2 em{text-shadow:0 0 28px rgba(255,125,157,.35)}
       <li class="now"><time>15 octubre</time><b>Cuatro meses</b><p>Hoy. Por eso existe esta página.</p></li>
       <li class="next"><time>15 diciembre</time><b>Medio año</b><p>Ya lo dijiste tú: en diciembre cumplimos medio año.</p></li>
     </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ESCENA 4A: MINI QUIZ -->
+<section class="scene">
+  <div class="wrap">
+    <span class="tag reveal">un ratito para jugar</span>
+    <h2 class="reveal">¿Cuánto recuerdas de <em>nosotros</em>?</h2>
+    <p class="lede reveal">Es opcional; puedes seguir recorriendo la página sin jugar.</p>
+    <div class="quiz-card reveal">
+      <button class="quiz-toggle" id="quizToggle" type="button" aria-expanded="false" aria-controls="quizPanel">¿Jugamos un ratito?</button>
+      <div id="quizPanel" hidden>
+        <p class="quiz-lede">Tres preguntas, Ary. Elige una respuesta para descubrir cada recuerdo.</p>
+        <div class="quiz-question" data-quiz-step="0">
+          <h3 id="quizQuestion1">1. ¿Cómo empezó todo?</h3>
+          <form class="quiz-form" data-answer="b" data-feedback="Fue el 12 de mayo. Me pasaste tu número por Messenger y yo me presenté como pude.">
+            <fieldset class="quiz-options" aria-labelledby="quizQuestion1">
+              <label><input type="radio" name="quiz1" value="a"> a) Con un «Hola» muy formal</label>
+              <label><input type="radio" name="quiz1" value="b"> b) Respondiendo una historia</label>
+              <label><input type="radio" name="quiz1" value="c"> c) Con una llamada</label>
+              <label><input type="radio" name="quiz1" value="d"> d) Con un meme</label>
+            </fieldset>
+            <button type="submit">Comprobar respuesta</button>
+            <p class="quiz-feedback" data-quiz-feedback aria-live="polite"></p>
+            <button class="quiz-next" type="button" hidden>Siguiente pregunta</button>
+          </form>
+        </div>
+        <div class="quiz-question" data-quiz-step="1" hidden>
+          <h3 id="quizQuestion2">2. ¿Qué cosa te "cobraba" yo seguido?</h3>
+          <form class="quiz-form" data-answer="c" data-feedback="Siempre te decía «me debes mi canción», pero en realidad solo quería escucharte cantar.">
+            <fieldset class="quiz-options" aria-labelledby="quizQuestion2">
+              <label><input type="radio" name="quiz2" value="a"> a) Un abrazo</label>
+              <label><input type="radio" name="quiz2" value="b"> b) Una pizza</label>
+              <label><input type="radio" name="quiz2" value="c"> c) Mi canción</label>
+              <label><input type="radio" name="quiz2" value="d"> d) Un dibujo</label>
+            </fieldset>
+            <button type="submit">Comprobar respuesta</button>
+            <p class="quiz-feedback" data-quiz-feedback aria-live="polite"></p>
+            <button class="quiz-next" type="button" hidden>Siguiente pregunta</button>
+          </form>
+        </div>
+        <div class="quiz-question" data-quiz-step="2" hidden>
+          <h3 id="quizQuestion3">3. ¿Cuál es la canción que te dedico?</h3>
+          <form class="quiz-form" data-answer="b" data-feedback="Don’t Give Up On Me, de Andy Grammer.">
+            <fieldset class="quiz-options" aria-labelledby="quizQuestion3">
+              <label><input type="radio" name="quiz3" value="a"> a) Perfect</label>
+              <label><input type="radio" name="quiz3" value="b"> b) Don’t Give Up On Me</label>
+              <label><input type="radio" name="quiz3" value="c"> c) Yellow</label>
+              <label><input type="radio" name="quiz3" value="d"> d) Count on Me</label>
+            </fieldset>
+            <button type="submit">Comprobar respuesta</button>
+            <p class="quiz-feedback" data-quiz-feedback aria-live="polite"></p>
+            <button class="quiz-next" type="button" hidden>Revelar mensaje final</button>
+          </form>
+        </div>
+        <div class="quiz-final" id="quizFinal" hidden>
+          <div class="quiz-envelope" role="img" aria-label="Un sobre se abre para revelar una carta">
+            <svg id="quizEnvelopeFallback" viewBox="0 0 160 120" role="img" aria-hidden="true">
+              <rect x="20" y="28" width="120" height="78" rx="8" fill="#f7ecdd"/>
+              <path d="M22 35 80 78l58-43" fill="none" stroke="#ff7d9d" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="m23 103 43-37m71 37L94 66" fill="none" stroke="#ffb25e" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+            <div id="quizLottie" aria-hidden="true"></div>
+          </div>
+          <p class="quiz-final-message">Las respuestas ya las sabías, Ary. Lo que quería saber es si sabías lo que siento por ti. Pase lo que pase y venga lo que venga, sigo aquí, sosteniendo tu mano. Feliz cuarto mes. ♥</p>
+          <p class="quiz-proposal">¿Te casas conmigo UwU?</p>
+          <button class="quiz-reset" id="quizReset" type="button">Jugar otra vez</button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -453,6 +551,7 @@ h2 em{text-shadow:0 0 28px rgba(255,125,157,.35)}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
 <script>
 (function(){
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -585,6 +684,120 @@ h2 em{text-shadow:0 0 28px rgba(255,125,157,.35)}
       gsap.fromTo(node, {x:ox - sz/2, y:oy - sz/2, scale:.3, opacity:1, rotation:0},
         {x:ox + (Math.random() - .5) * 340, y:oy - 120 - Math.random() * 360, rotation:(Math.random() - .5) * 120, scale:1, opacity:0, duration:1.6 + Math.random(), ease:'power2.out', onComplete:(function(n){ return function(){ n.remove(); }; })(node)});
     }
+  });
+
+  /* ---------- Quiz opcional ---------- */
+  var quizToggle = document.getElementById('quizToggle');
+  var quizPanel = document.getElementById('quizPanel');
+  var quizSteps = Array.prototype.slice.call(document.querySelectorAll('[data-quiz-step]'));
+  var quizFinal = document.getElementById('quizFinal');
+  var quizStep = 0;
+  var envelopeAnimation = null;
+  document.querySelectorAll('.memory').forEach(function(memory){
+    memory.addEventListener('toggle', function(){ if (window.ScrollTrigger) ScrollTrigger.refresh(); });
+  });
+  quizToggle.addEventListener('click', function(){
+    var opening = quizPanel.hidden;
+    quizPanel.hidden = !opening;
+    quizToggle.setAttribute('aria-expanded', String(opening));
+    if (opening) quizSteps[quizStep].querySelector('input').focus();
+  });
+  document.querySelectorAll('.quiz-form').forEach(function(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      if (form.dataset.done) return;
+      var selected = form.querySelector('input:checked');
+      var feedback = form.querySelector('[data-quiz-feedback]');
+      if (!selected){
+        feedback.className = 'quiz-feedback try';
+        feedback.textContent = 'Elige una respuesta para continuar.';
+        return;
+      }
+      var correct = selected.value === form.dataset.answer;
+      feedback.className = 'quiz-feedback ' + (correct ? 'good' : 'try');
+      feedback.textContent = (correct ? '¡Correcto! ' : 'La respuesta era otra, pero el recuerdo es bonito igual. ') + form.dataset.feedback;
+      form.dataset.done = 'true';
+      form.querySelectorAll('input').forEach(function(input){ input.disabled = true; });
+      form.querySelector('[type="submit"]').hidden = true;
+      form.querySelector('.quiz-next').hidden = false;
+    });
+  });
+  function playEnvelope(){
+    if (reduce) return;
+    if (envelopeAnimation){
+      envelopeAnimation.goToAndPlay(0, true);
+      return;
+    }
+    if (!window.lottie) return;
+    var transform = {o:{a:0,k:100},r:{a:0,k:0},p:{a:0,k:[0,0,0]},a:{a:0,k:[0,0,0]},s:{a:0,k:[100,100,100]},sk:{a:0,k:0},sa:{a:0,k:0}};
+    var shapeTransform = {ty:'tr',p:{a:0,k:[0,0]},a:{a:0,k:[0,0]},s:{a:0,k:[100,100]},r:{a:0,k:0},o:{a:0,k:100},sk:{a:0,k:0},sa:{a:0,k:0}};
+    var rectangle = {ty:'gr',it:[
+      {ty:'rc',d:1,s:{a:0,k:[120,78]},p:{a:0,k:[0,0]},r:{a:0,k:8},nm:'Sobre'},
+      {ty:'fl',c:{a:0,k:[0.969,0.925,0.867,1]},o:{a:0,k:100},r:1,bm:0,nm:'Papel'},
+      {ty:'st',c:{a:0,k:[1,0.49,0.616,1]},o:{a:0,k:100},w:{a:0,k:3},lc:2,lj:2,bm:0,nm:'Borde'},
+      shapeTransform
+    ],nm:'Cuerpo del sobre'};
+    var flap = {ty:'gr',it:[
+      {ty:'sh',ks:{a:0,k:{i:[[0,0],[0,0],[0,0]],o:[[0,0],[0,0],[0,0]],v:[[-60,0],[0,42],[60,0]],c:false}},nm:'Solapa'},
+      {ty:'st',c:{a:0,k:[1,0.49,0.616,1]},o:{a:0,k:100},w:{a:0,k:5},lc:2,lj:2,bm:0,nm:'Trazo'},
+      {ty:'tr',p:{a:0,k:[0,0]},a:{a:0,k:[0,0]},s:{a:0,k:[100,100]},r:{a:1,k:[
+        {t:0,s:[0],e:[0],o:{x:0.333,y:0},i:{x:0.667,y:1}},
+        {t:8,s:[0],e:[180],o:{x:0.333,y:0},i:{x:0.667,y:1}},
+        {t:28,s:[180]}
+      ]},o:{a:0,k:100},sk:{a:0,k:0},sa:{a:0,k:0}}
+    ],nm:'Solapa que se abre'};
+    function layer(index, name, position, anchor, shapes){
+      var layerTransform = JSON.parse(JSON.stringify(transform));
+      layerTransform.p = {a:0,k:position};
+      layerTransform.a = {a:0,k:anchor};
+      return {ddd:0,ind:index,ty:4,nm:name,sr:1,ks:layerTransform,ao:0,shapes:shapes,ip:0,op:45,st:0,bm:0};
+    }
+    envelopeAnimation = window.lottie.loadAnimation({
+      container:document.getElementById('quizLottie'),
+      renderer:'svg',
+      loop:false,
+      autoplay:true,
+      animationData:{v:'5.7.4',fr:30,ip:0,op:45,w:160,h:120,nm:'Sobre que se abre',ddd:0,assets:[],layers:[
+        layer(1,'Cuerpo',[80,68,0],[0,0,0],[rectangle]),
+        layer(2,'Solapa',[80,29,0],[0,0,0],[flap])
+      ]}
+    });
+    envelopeAnimation.addEventListener('DOMLoaded', function(){
+      document.getElementById('quizEnvelopeFallback').hidden = true;
+    });
+  }
+  document.querySelectorAll('.quiz-next').forEach(function(button){
+    button.addEventListener('click', function(){
+      quizSteps[quizStep].hidden = true;
+      quizStep += 1;
+      if (quizStep < quizSteps.length){
+        quizSteps[quizStep].hidden = false;
+        quizSteps[quizStep].querySelector('input').focus();
+        return;
+      }
+      quizFinal.hidden = false;
+      quizFinal.querySelector('.quiz-reset').focus();
+      playEnvelope();
+    });
+  });
+  document.getElementById('quizReset').addEventListener('click', function(){
+    if (envelopeAnimation) envelopeAnimation.goToAndStop(0, true);
+    document.getElementById('quizEnvelopeFallback').hidden = false;
+    quizFinal.hidden = true;
+    quizSteps.forEach(function(step, index){
+      step.hidden = index !== 0;
+      var form = step.querySelector('form');
+      form.reset();
+      delete form.dataset.done;
+      form.querySelectorAll('input').forEach(function(input){ input.disabled = false; });
+      form.querySelector('[type="submit"]').hidden = false;
+      form.querySelector('.quiz-next').hidden = true;
+      var feedback = form.querySelector('[data-quiz-feedback]');
+      feedback.className = 'quiz-feedback';
+      feedback.textContent = '';
+    });
+    quizStep = 0;
+    quizSteps[0].querySelector('input').focus();
   });
 
   /* ---------- Animaciones con GSAP ---------- */
