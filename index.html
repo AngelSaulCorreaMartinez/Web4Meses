@@ -1,12 +1,4 @@
-<!doctype html>
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
-</head>
-<body>
-<title>Cuatro meses con Ary</title>
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style></head><body><title>Cuatro meses con Ary</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:ital,wght@0,400;0,600;1,400;1,600&family=Nunito:wght@400;600;800&display=swap">
 <style>
@@ -167,6 +159,34 @@ footer{padding:2rem 0 3rem;text-align:center;color:var(--mist);font-size:.9rem}
 .pl-main{display:block;width:150px;height:auto;border-radius:14px;border:4px solid var(--paper);rotate:-3deg;box-shadow:0 14px 28px rgba(0,0,0,.4)}
 .pl-small{position:absolute;right:0;bottom:0;width:84px;height:84px;object-fit:cover;border-radius:50%;border:3px solid var(--paper);box-shadow:0 10px 20px rgba(0,0,0,.4)}
 
+
+/* ---- Versión épica ---- */
+body.locked{overflow:hidden;height:100svh}
+.gate{min-height:100svh;display:grid;align-items:center;text-align:center;padding-block:56px;position:relative;overflow:hidden}
+.gate::before{content:"";position:absolute;left:50%;top:42%;width:140vmax;height:140vmax;translate:-50% -50%;background:radial-gradient(circle,rgba(255,125,157,.22),rgba(255,178,94,.08) 22%,transparent 46%);animation:glow 5s ease-in-out infinite;pointer-events:none}
+@keyframes glow{0%,100%{opacity:.55;scale:.92}50%{opacity:1;scale:1.05}}
+.gate .wrap{position:relative}
+.gate .tag{transform:rotate(-2deg)}
+.gate .song{margin:1.6rem auto 0;max-width:460px;text-align:left;justify-content:center;box-shadow:0 0 60px rgba(255,125,157,.25)}
+.gate-steps{list-style:none;margin:1.6rem auto 0;padding:0;max-width:340px;text-align:left;counter-reset:s;color:var(--mist);font-size:1rem}
+.gate-steps li{counter-increment:s;display:flex;gap:.8rem;align-items:baseline;margin:.45rem 0}
+.gate-steps li::before{content:counter(s);flex:0 0 1.7rem;height:1.7rem;border-radius:50%;background:var(--lantern);color:var(--night);font:800 .9rem/1.7rem var(--body);text-align:center}
+.enter{margin-top:1.8rem;border:0;cursor:pointer;font-size:1.1rem;padding:1.1rem 1.9rem;box-shadow:0 0 0 0 rgba(255,178,94,.6);animation:ring 2.2s ease-out infinite}
+@keyframes ring{to{box-shadow:0 0 0 22px rgba(255,178,94,0)}}
+.skip{display:block;margin:1rem auto 0;background:none;border:0;color:var(--mist);font:600 .85rem var(--body);text-decoration:underline;cursor:pointer;padding:.5rem}
+.skip:focus-visible,.enter:focus-visible{outline:3px solid var(--rose);outline-offset:3px}
+.vig{position:fixed;inset:0;z-index:40;pointer-events:none;background:radial-gradient(ellipse at center,transparent 55%,rgba(4,6,16,.55) 100%)}
+#prog{position:fixed;top:0;left:0;width:100%;height:3px;z-index:60;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,var(--lantern),var(--rose));box-shadow:0 0 12px var(--rose)}
+.cine{position:fixed;left:0;width:100%;height:51vh;background:#05070f;z-index:90;visibility:hidden;pointer-events:none}
+#cineT{top:0}#cineB{bottom:0}
+.seam{position:fixed;left:0;top:50%;width:100%;height:2px;z-index:91;background:linear-gradient(90deg,transparent,var(--lantern),var(--rose),var(--lantern),transparent);box-shadow:0 0 24px var(--lantern);visibility:hidden;pointer-events:none;transform-origin:center}
+.hero h1 .ch{display:inline-block;will-change:transform,opacity,filter}
+.hero h1 .w:last-child{text-shadow:0 0 36px rgba(255,178,94,.35)}
+.fw{position:absolute;left:0;top:0;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;box-shadow:0 0 10px currentColor}
+.quote{position:relative}
+h2 em{text-shadow:0 0 28px rgba(255,125,157,.35)}
+.why{margin-top:1.4rem;font:500 1.7rem/1.3 var(--hand);color:var(--lantern)}
+
 @media (min-width:640px){
   .polas{columns:3}
   .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -181,7 +201,36 @@ footer{padding:2rem 0 3rem;text-align:center;color:var(--mist);font-size:.9rem}
 <div class="sky"></div>
 <canvas id="sky" aria-hidden="true"></canvas>
 
+<div id="prog" aria-hidden="true"></div>
+<div class="vig" aria-hidden="true"></div>
+<div class="cine" id="cineT" aria-hidden="true"></div><div class="cine" id="cineB" aria-hidden="true"></div><div class="seam" id="seam" aria-hidden="true"></div>
+
 <main>
+<!-- PUERTA: LA CANCION PRIMERO -->
+<section class="gate" id="gate">
+  <div class="wrap">
+    <span class="tag" id="gTag">antes de empezar</span>
+    <h2 id="gTitle">Esta historia tiene <em>banda sonora</em></h2>
+    <div class="song" id="gSong">
+      <div class="vinyl" aria-hidden="true"></div>
+      <div class="song-info">
+        <h3>Don’t Give Up On Me</h3>
+        <p>Andy Grammer</p>
+        <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <a class="btn" id="spot" href="https://open.spotify.com/track/0fiijtFXDJ9MOVwgSaEQJ5" target="_blank" rel="noopener">Abrir en Spotify</a>
+      </div>
+    </div>
+    <ol class="gate-steps" id="gSteps">
+      <li>Toca el botón y dale play a la canción.</li>
+      <li>Regresa aquí y déjala sonando de fondo.</li>
+      <li>Sube el volumen y entra.</li>
+    </ol>
+    <button class="btn enter" id="enter" type="button">Ya suena, entrar ♥</button>
+    <button class="skip" id="skip" type="button">entrar sin música</button>
+    <audio id="bgm" loop preload="none"></audio>
+  </div>
+</section>
+
 <!-- HERO -->
 <header class="scene hero">
   <div class="moon" aria-hidden="true"></div>
@@ -199,22 +248,6 @@ footer{padding:2rem 0 3rem;text-align:center;color:var(--mist);font-size:.9rem}
     <span class="cue"><i></i>Baja despacio. Esto es un poco de todo lo que nos hemos dicho.</span>
   </div>
 </header>
-
-<!-- CANCION -->
-<section class="scene" aria-label="Canción para escuchar">
-  <div class="wrap">
-    <p class="lede reveal">Reproduce esta canción de fondo para una mejor experiencia, uwu.</p>
-    <div class="song reveal">
-      <div class="vinyl" aria-hidden="true"></div>
-      <div class="song-info">
-        <h3>Don’t Give Up On Me</h3>
-        <p>Andy Grammer</p>
-        <div class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-        <a class="btn" href="https://open.spotify.com/track/0fiijtFXDJ9MOVwgSaEQJ5" target="_blank" rel="noopener">Escuchar en Spotify</a>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ESCENA 1: HOLAP -->
 <section class="scene">
@@ -267,17 +300,20 @@ footer{padding:2rem 0 3rem;text-align:center;color:var(--mist);font-size:.9rem}
   </div>
 </section>
 
-<!-- ESCENA 3: CANCION -->
+<!-- ESCENA 3: TU VOZ -->
 <section class="scene">
   <div class="wrap">
-    <span class="tag reveal">desde el primer día</span>
-    <h2 class="reveal">Amaba tu <em>voz</em></h2>
+    <span class="tag reveal">mi pretexto favorito</span>
+    <h2 class="reveal">Amaba tu voz, así que fingía que me <em>debías una canción</em></h2>
+    <p class="lede reveal">Amaba tu voz y usaba de pretexto que me debías una canción para que me cantaras.</p>
     <div class="debt">
-      <p class="reveal">Desde el primer día amé tu hermosa voz. Me encantaba escucharte, y usaba de pretexto que me debías una canción para que me cantaras.</p>
+      <p class="reveal"><small>28 de mayo</small>Me debes mi canción</p>
+      <p class="reveal"><small>31 de mayo</small>Oye me debes mi canción</p>
+      <p class="reveal"><small>20 de junio</small>Yo quiero mi canción 🥺</p>
     </div>
-    <p class="lede reveal">Hoy quiero que sepas que siempre estaré para ti. Esta canción es para ti.</p>
+    <p class="why reveal">Nunca fue una deuda. Solo quería escucharte.</p>
     <blockquote class="quote reveal">«Pase lo que pase y venga lo que venga, yo voy a sostener tu mano en la oscuridad y nunca me voy a rendir contigo.»<small>Angel · 29 de septiembre</small></blockquote>
-    <p class="lede reveal">La canción lo dice mejor que yo, pero la idea es la misma.</p>
+    <p class="lede reveal">Hoy la canción es mía para ti: la que suena desde que abriste esta página.</p>
   </div>
 </section>
 
@@ -425,12 +461,13 @@ footer{padding:2rem 0 3rem;text-align:center;color:var(--mist);font-size:.9rem}
 
   /* ---------- Cielo de estrellas ---------- */
   var cv = document.getElementById('sky'), cx = cv.getContext('2d');
-  var W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 2), stars = [], shoot = null, lastShoot = 0;
+  var W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 2), stars = [], embers = [], shoot = null, lastShoot = 0;
   function seed(){
     W = window.innerWidth; H = window.innerHeight;
     cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr,0,0,dpr,0,0);
     var n = Math.round(W * H / 9500); stars = [];
-    for (var i = 0; i < n; i++) stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.3+.3,p:Math.random()*6.28,s:Math.random()*1.2+.4,w:Math.random()<.2});
+    for (var i = 0; i < n; i++) stars.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.3+.3,p:Math.random()*6.28,s:Math.random()*1.2+.4,w:Math.random()<.2,z:[.05,.12,.25][i%3]});
+    embers = []; for (var j = 0; j < 28; j++) embers.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*2+.8,v:Math.random()*.5+.2,p:Math.random()*6.28});
   }
   function frame(t){
     cx.clearRect(0,0,W,H);
@@ -439,9 +476,16 @@ footer{padding:2rem 0 3rem;text-align:center;color:var(--mist);font-size:.9rem}
       var s = stars[i];
       cx.globalAlpha = reduce ? .6 : .3 + .7 * (.5 + .5 * Math.sin(t/1000 * s.s + s.p));
       cx.fillStyle = s.w ? warm : paper;
-      cx.beginPath(); cx.arc(s.x, s.y, s.r, 0, 6.2832); cx.fill();
+      cx.beginPath(); cx.arc(s.x, ((s.y - window.scrollY * s.z) % H + H) % H, s.r, 0, 6.2832); cx.fill();
     }
     if (!reduce){
+      cx.fillStyle = warm;
+      for (var k = 0; k < embers.length; k++){
+        var m = embers[k]; m.y -= m.v; m.x += Math.sin(t/900 + m.p) * .3;
+        if (m.y < -10){ m.y = H + 10; m.x = Math.random() * W; }
+        cx.globalAlpha = .25 + .35 * Math.sin(t/600 + m.p) * Math.sin(t/600 + m.p);
+        cx.beginPath(); cx.arc(m.x, m.y, m.r, 0, 6.2832); cx.fill();
+      }
       if (!shoot && t - lastShoot > 7000){ shoot = {x:Math.random()*W*.7+W*.2,y:Math.random()*H*.3,l:0}; lastShoot = t; }
       if (shoot){
         shoot.l += 1; var k = shoot.l / 50, x = shoot.x + shoot.l*7, y = shoot.y + shoot.l*3.2;
@@ -454,6 +498,33 @@ footer{padding:2rem 0 3rem;text-align:center;color:var(--mist);font-size:.9rem}
   }
   seed(); requestAnimationFrame(frame);
   window.addEventListener('resize', function(){ if (window.innerWidth !== W){ seed(); if (reduce) requestAnimationFrame(frame); } });
+
+
+  /* ---------- Barra de progreso ---------- */
+  var prog = document.getElementById('prog');
+  function onScroll(){ var m = document.documentElement.scrollHeight - window.innerHeight; prog.style.transform = 'scaleX(' + (m > 0 ? Math.min(1, window.scrollY / m) : 0) + ')'; }
+  window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  /* ---------- Título del hero en letras ---------- */
+  var h1 = document.querySelector('.hero h1'); h1.setAttribute('aria-label', 'Ary, cuatro meses.');
+  h1.querySelectorAll('.w').forEach(function(w){
+    var txt = w.textContent; w.setAttribute('aria-hidden', 'true'); w.textContent = '';
+    for (var q = 0; q < txt.length; q++){ var c = document.createElement('span'); c.className = 'ch'; c.textContent = txt[q]; w.appendChild(c); }
+  });
+
+  /* ---------- Puerta: la canción primero ---------- */
+  var BGM_SRC = '';  // opcional: ruta a un mp3 propio para que suene dentro de la página
+  var bgm = document.getElementById('bgm'), entered = false, introFn = null, cineFn = null;
+  document.body.classList.add('locked');
+  function goHero(smooth){ var h = document.querySelector('.hero'); window.scrollTo({top:h.getBoundingClientRect().top + window.scrollY, behavior:smooth ? 'smooth' : 'auto'}); }
+  function enter(withMusic){
+    if (entered) return; entered = true;
+    if (withMusic && BGM_SRC){ bgm.src = BGM_SRC; bgm.volume = .7; bgm.play().catch(function(){}); }
+    var go = function(){ document.body.classList.remove('locked'); goHero(false); if (window.ScrollTrigger) ScrollTrigger.refresh(); };
+    if (cineFn) cineFn(go); else { go(); }
+  }
+  document.getElementById('enter').addEventListener('click', function(){ enter(true); });
+  document.getElementById('skip').addEventListener('click', function(){ enter(false); });
 
   /* ---------- Contador en vivo ---------- */
   var start = Date.parse('2026-06-15T00:00:00-06:00');
@@ -493,7 +564,17 @@ footer{padding:2rem 0 3rem;text-align:center;color:var(--mist);font-size:.9rem}
   var msg = document.getElementById('heartMsg'), burst = document.getElementById('burst'), hb = document.getElementById('heartBtn');
   var HEART = '<svg viewBox="0 0 24 24" width="SZ" height="SZ"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="FILL"/></svg>';
   var lines = ['Te amo, Ary.','Feliz cuarto mes.','Mi niña, mi vida.','No me rindo contigo.'], li = 0;
+  function firework(x, y, n){
+    if (reduce || !window.gsap) return; n = n || 28;
+    var cols = [C('--rose'), C('--lantern'), C('--paper')];
+    for (var i = 0; i < n; i++){
+      var p = document.createElement('i'); p.className = 'fw'; p.style.background = cols[i % 3]; p.style.color = cols[i % 3]; burst.appendChild(p);
+      var a = i / n * 6.2832 + Math.random() * .2, d = 70 + Math.random() * 110;
+      gsap.fromTo(p, {x:x, y:y, scale:1.2, opacity:1}, {x:x + Math.cos(a) * d, y:y + Math.sin(a) * d + 40, scale:0, opacity:0, duration:1.3 + Math.random() * .6, ease:'power2.out', onComplete:(function(n2){ return function(){ n2.remove(); }; })(p)});
+    }
+  }
   hb.addEventListener('click', function(e){
+    firework(innerWidth * (.25 + Math.random() * .5), innerHeight * (.2 + Math.random() * .3), 30);
     msg.textContent = lines[li++ % lines.length];
     if (reduce || !window.gsap) return;
     var r = hb.getBoundingClientRect(), ox = r.left + r.width/2, oy = r.top + r.height/2;
@@ -511,10 +592,36 @@ footer{padding:2rem 0 3rem;text-align:center;color:var(--mist);font-size:.9rem}
   var hasST = !!window.ScrollTrigger;
   if (hasST) gsap.registerPlugin(ScrollTrigger);
 
-  // Hero al cargar
-  gsap.from('#heroTag', {opacity:0, y:14, duration:.7});
-  gsap.from('.hero h1 .w', {yPercent:60, opacity:0, duration:1, stagger:.14, ease:'power3.out', delay:.1});
-  gsap.from('.hero .range, .clock div, .clock-note, .cue', {opacity:0, y:18, duration:.8, stagger:.08, delay:.7, ease:'power2.out'});
+  // Hero: entrada cinematográfica (se dispara al entrar)
+  var chars = h1.querySelectorAll('.ch'), heroBits = '.hero .range, .clock div, .clock-note, .cue';
+  gsap.set('#heroTag', {opacity:0, y:14});
+  gsap.set(chars, {opacity:0, scale:1.9, filter:'blur(16px)', y:30});
+  gsap.set(heroBits, {opacity:0, y:22});
+  gsap.set(['#cineT', '#cineB'], {autoAlpha:0});
+  gsap.set('#cineT', {yPercent:-100}); gsap.set('#cineB', {yPercent:100});
+  gsap.set('#seam', {autoAlpha:0, scaleX:0});
+  gsap.from(['#gTag', '#gTitle', '#gSong', '#gSteps', '#enter', '#skip'], {opacity:0, y:26, duration:1, stagger:.18, ease:'power3.out', delay:.2});
+  gsap.from('#gTitle em', {scale:.9, duration:1.6, ease:'elastic.out(1,.5)', delay:.7});
+  cineFn = function(go){
+    var tl = gsap.timeline();
+    tl.set(['#cineT', '#cineB'], {autoAlpha:1})
+      .to('#cineT', {yPercent:0, duration:.7, ease:'power4.in'}, 0)
+      .to('#cineB', {yPercent:0, duration:.7, ease:'power4.in'}, 0)
+      .add(go, .75)
+      .set('#seam', {autoAlpha:1}, .75)
+      .to('#seam', {scaleX:1, duration:.35, ease:'power2.out'}, .75)
+      .to('#cineT', {yPercent:-100, duration:1.1, ease:'power4.inOut'}, 1.15)
+      .to('#cineB', {yPercent:100, duration:1.1, ease:'power4.inOut'}, 1.15)
+      .to('#seam', {opacity:0, duration:.5}, 1.2)
+      .set(['#cineT', '#cineB', '#seam'], {autoAlpha:0}, 2.4)
+      .to('#heroTag', {opacity:1, y:0, duration:.8, ease:'power2.out'}, 1.45)
+      .to(chars, {opacity:1, scale:1, filter:'blur(0px)', y:0, duration:1.5, stagger:.07, ease:'expo.out'}, 1.55)
+      .to('.hero h1 .w:last-child', {textShadow:'0 0 70px rgba(255,178,94,.9)', duration:.8, yoyo:true, repeat:1, ease:'sine.inOut'}, 2.6)
+      .to(heroBits, {opacity:1, y:0, duration:.9, stagger:.1, ease:'power2.out'}, 2.8);
+    var shown = false;
+    tl.add(function(){ if (!shown){ shown = true; firework(innerWidth * .25, innerHeight * .3, 22); setTimeout(function(){ firework(innerWidth * .75, innerHeight * .26, 22); }, 350); } }, 2.2);
+  };
+  if (entered) cineFn(function(){ document.body.classList.remove('locked'); goHero(false); });
   gsap.to('.moon', {y:16, duration:5, yoyo:true, repeat:-1, ease:'sine.inOut'});
 
   // Orejitas: la fotito chica late suavemente
@@ -528,9 +635,37 @@ footer{padding:2rem 0 3rem;text-align:center;color:var(--mist);font-size:.9rem}
   if (!hasST) return;
 
   // Aparición general
-  gsap.set('.reveal', {opacity:0, y:28});
-  ScrollTrigger.batch('.reveal', {start:'top 90%', once:true,
-    onEnter:function(b){ gsap.to(b, {opacity:1, y:0, duration:.9, stagger:.12, ease:'power3.out', overwrite:true}); }});
+  var REV = '.reveal:not(h2):not(.pola):not(.quote)';
+  gsap.set(REV, {opacity:0, y:34});
+  ScrollTrigger.batch(REV, {start:'top 90%', once:true,
+    onEnter:function(b){ gsap.to(b, {opacity:1, y:0, duration:1, stagger:.14, ease:'power3.out', overwrite:true}); }});
+
+  // Títulos: salen del desenfoque con zoom
+  document.querySelectorAll('h2.reveal').forEach(function(h){
+    gsap.fromTo(h, {opacity:0, y:46, scale:.92, filter:'blur(12px)', letterSpacing:'.04em'},
+      {opacity:1, y:0, scale:1, filter:'blur(0px)', letterSpacing:'-.01em', duration:1.3, ease:'expo.out',
+       scrollTrigger:{trigger:h, start:'top 88%', once:true}});
+  });
+  // Citas: entran con una línea de luz
+  document.querySelectorAll('.quote').forEach(function(q){
+    gsap.fromTo(q, {opacity:0, x:-40, borderLeftColor:'rgba(255,178,94,0)'},
+      {opacity:1, x:0, borderLeftColor:'#ffb25e', duration:1.2, ease:'power3.out',
+       scrollTrigger:{trigger:q, start:'top 88%', once:true}});
+  });
+  // Polaroids: caen como fotos lanzadas sobre la mesa
+  document.querySelectorAll('.pola').forEach(function(p, i){
+    gsap.fromTo(p, {opacity:0, y:120, scale:.8, rotation:(i % 2 ? 1 : -1) * 14},
+      {opacity:1, y:0, scale:1, rotation:0, duration:1.1, ease:'back.out(1.6)',
+       scrollTrigger:{trigger:p, start:'top 94%', once:true}});
+  });
+  // Luz que acompaña: el cielo respira con el scroll
+  gsap.to('.sky', {opacity:.7, ease:'none', scrollTrigger:{trigger:'main', start:'top top', end:'bottom bottom', scrub:true}});
+  // Hero se aleja al bajar
+  gsap.to('.hero .wrap', {scale:.9, opacity:.15, y:-70, ease:'none', scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}});
+  // Cierre: fuegos artificiales
+  ScrollTrigger.create({trigger:'.closing', start:'top 65%', once:true, onEnter:function(){
+    for (var f = 0; f < 6; f++) (function(f){ setTimeout(function(){ firework(innerWidth * (.15 + Math.random() * .7), innerHeight * (.15 + Math.random() * .4), 30); }, f * 420); })(f);
+  }});
 
   // Chats: burbujas una por una
   ['#chat1', '#chat2'].forEach(function(id){
@@ -545,7 +680,8 @@ footer{padding:2rem 0 3rem;text-align:center;color:var(--mist);font-size:.9rem}
   document.querySelectorAll('[data-count]').forEach(function(b){
     var end = +b.dataset.count, suf = b.dataset.suffix || '', o = {v:0};
     ScrollTrigger.create({trigger:b, start:'top 88%', once:true, onEnter:function(){
-      gsap.to(o, {v:end, duration:1.8, ease:'power2.out', onUpdate:function(){ b.textContent = Math.round(o.v).toLocaleString('es-MX') + suf; }});
+      gsap.fromTo(b, {scale:.6}, {scale:1, duration:1.2, ease:'back.out(2.2)'});
+      gsap.to(o, {v:end, duration:2.2, ease:'power3.out', onUpdate:function(){ b.textContent = Math.round(o.v).toLocaleString('es-MX') + suf; }});
     }});
   });
 
@@ -570,6 +706,4 @@ footer{padding:2rem 0 3rem;text-align:center;color:var(--mist);font-size:.9rem}
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ ScrollTrigger.refresh(); });
 })();
 </script>
-
-</body>
-</html>
+</body></html>
